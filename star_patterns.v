@@ -1,7 +1,9 @@
 
 //////////////////////////////////  star patterns in simulation time///////////////////////////////////////////////////////
-`timescale 1 ns / 1 ps
+
 // timescale is a compiler directive in verilog/sv  to define time unit and time precision
+`timescale 1 ns / 1 ps
+
 module tb();
 integer i,j;
 
