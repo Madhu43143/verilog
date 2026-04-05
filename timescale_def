@@ -1,0 +1,30 @@
+what is time scale? 
+  time scale is a compiler directive to define the simulation time unit and time precision 
+
+TIME UNIT --> tells the simulator what a delay like #1 means,
+TIME PRECISION --> tells the smallest resolution used for rounding timing accuracy
+
+without timescale?
+  delay interpretation can become tool-dependent or may inherit settings from another file,
+  which can lead to unexpected simulation behaviour
+
+ex : with timescale 
+    `timescale 1ns/1ps
+     #5;
+    #5 means  5 ns,precision = 1 ps
+ex: without timescale
+   #5 means ,simulator may use a default timescale (or)
+             it may inherit from another compiled file (or)
+              behaviour can become inconsistent
+   file A:
+       `timescale 1ns/1ps
+          module A;
+            initial #5 $display("A time = %0t", $time);
+          endmodule
+
+  File B (without timescale)
+          module B;
+            initial #5 $display("B time = %0t", $time);
+          endmodule
+
+  ---> inherit time scale from previous file
