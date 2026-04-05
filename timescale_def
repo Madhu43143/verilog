@@ -1,3 +1,4 @@
+
 what is time scale? 
   time scale is a compiler directive to define the simulation time unit and time precision 
 
@@ -47,4 +48,99 @@ ex: without timescale
 *   1 ns = 1000 ps
 *
 *
-***************************************************************************
+**********************************************************************************
+
+
+**********************************************************************************
+*        TB timescale → decides stimulus / clock / reset / sampling delays
+         RTL timescale → decides delays written inside RTL only... Ex:`timescale 1ns/1ps  
+                                                                        #5 y = a;
+                         not decide where inputs are sampling@(posedge clk)
+                           
+*          RTL timescale does NOT decide
+            where input is sampled
+            when @(posedge clk) triggers
+            when @(req) triggers
+            
+            Because:
+            
+            @(posedge clk)
+            
+            is event-based, not delay-based.
+            
+            So:
+            
+            edge vachina appudu trigger avuthundi
+            timescale valla kaadhu
+
+*         RTL timescale does NOT decide
+          when @(posedge clk) happens
+          when input changes are detected
+          where sampling occurs in event control
+
+
+*        Why put timescale in DUT?
+
+            Good question.
+            
+            If DUT has:
+            
+            #delays
+            time-based models
+            timeouts
+            assertions with delays
+            $time / $realtime
+            internal clocks or waits
+***********************************************************************************
+
+
+
+
+
+
+
+
+
+
+
+
+??????????????????????????????  INTERVIEW QUESTIONS ??????????????????????????????????????????
+
+1. What is timescale?
+ans: timescale is a compiler directive to define the simulation time unit and precision time 
+
+2.what is time unit and time precision?
+ans: TIME  UNIT --> tells the simulator what a mean of #1 delay
+     TIME PRECISION --> tells the smallest resolution used for rounding timing accuracy
+
+3.what is the rule of time precison?
+ans: time precision must be less than or equal to time precision
+    timeprecision <= timeunit
+  ex: 1ns/1ps ✔️  1ns/1ns ✔️
+      1ps/1ns ❌
+
+
+
+4.what happens if mention timescale in both tb and rtl?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
