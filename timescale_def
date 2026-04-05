@@ -28,3 +28,23 @@ ex: without timescale
           endmodule
 
   ---> inherit time scale from previous file
+
+
+***************************************************************************
+*  precision must be same or smaller than time unit   " 1ns/1ps(smaller)"
+*  1s
+*  1ms = 1 * 10 ^-3
+*  1us = 1 * 10 ^-6
+*  1ns = 1 * 10 ^-9
+*  1ps = 1 * 10 ^-12
+*  
+*  100ns = 0.1 us               100us = 0.1ms
+*  1000ns= 1us,                  1000us= 1ms
+*  
+*   1 s  = 1000 ms
+*   1 ms = 1000 µs
+*   1 µs = 1000 ns
+*   1 ns = 1000 ps
+*
+*
+***************************************************************************
