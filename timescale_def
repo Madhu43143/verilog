@@ -119,6 +119,9 @@ ans: time precision must be less than or equal to time precision
   ex: 1ns/1ps ✔️  1ns/1ns ✔️
       1ps/1ns ❌
 
+4.what is the default time scale unit ?
+ans: there is no default time scale unit in verilog/sv,
+     default time sequence is a tool dependent
 
 
 4.what happens if mention timescale in both tb and rtl?
