@@ -85,15 +85,67 @@ ans:   TB timescale → decides stimulus / clock / reset / sampling delays
 ans: delay interpretation can become tool-dependent or may inherit settings from another file,
   which can lead to unexpected simulation behaviour
 
-7.what happens 3 differnt files having timescale
+7.what happens 3 differnt files having timescale?
+ans: file 1: `timescale 10ns/1ps
+     file 2:  no timescale
+     file 3: `timescale 100ns/1ns
+
+there are 3 possibilities
+  case1: file 2 first,it picks the default simulator timescale 
+  case2: file 2 picks a timescale either file 1 (or) file3 (depends on which module first)
+   "WE AVOID FILE ORDER DEPENDENCY PROBLEM EVERY MODULE HAVE `timescale YOU HAVE TO MENTION REMAINING FILES ALSO MENTION THE `timescale". 
+   if non of the module has no `timescale that's ok
+  case3: 3 modules have `timescale given each module has different timescales.in simulation time when you display the "$time" in console mode it confuses
+
+   IMPORTANT NOTE: $time displays/retunrs  the time value,not times units string 
+                   to fix the problem we using $timeformat
+        $time --->>>>> SYSYTEM FUNCTION """"""   $time returns the current simulation time   """""""
+        $timeformat--->>> SYSTEM TASK """"""""   $timeformat used to control how time values are displayed in simulation output """""""""
+
+  CONCLUSION:$time gives the value, $time → time value and 
+             $timeformat changes only the representation, not the actual simulation timing.
+             $timeformat → time display format
+  
+             $timeformat(unit_number, precision, suffix, minimum_width);
+             $timeformat(-9, 2, " ns", 10);
+
+ 8. how the simulation time will be effected while using $time and $timeformat?
+ans: $time is a function it returns a value
+     $timeformat is a task it doesnot return any value
+
+     ex: `timescale 1ns/1ps
+         module tb();
+         initial begin
+           #15;
+           $display("Default time = %0t",$time);  // default time = 15
+           
+        //            unit number, precision time, suffix, minimum_width 
+           $timeformat(        -9,             2,  " ns",  10);
+           #10;                                                             12345678910(width)
+           $display("Formatted time = %t",$time);  // 25 ns formatted time =  25.00 ns
+           $timeformat(-9,2," ns",3);
+           #5;                                                      // just min width ,max is automatic
+           $display("small width time = %t",$time); //30ns small width time =30.00 ns 
+         end
+        endmodule
 
 
-
-
-
-
-
-
+***************************************************************************
+*  precision must be same or smaller than time unit   " 1ns/1ps(smaller)"
+*    0 = 1s
+*   -1 = 100ms
+*   -2 = 10ms
+*   -3 = 1ms
+*   -4 = 100us
+*   -5 = 10us
+*   -6 = 1us             
+*   -7 = 100ns
+*   -8 = 10ns
+*   -9 = 1ns                
+*  -10 = 100ps
+*  -11 = 10ps
+*  -12 = 1ps 
+**********************************************************************************
 
 
 
