@@ -1,4 +1,3 @@
-
 what is time scale? 
   time scale is a compiler directive to define the simulation time unit and time precision 
 
@@ -121,11 +120,53 @@ ans: time precision must be less than or equal to time precision
 
 4.what is the default time scale unit ?
 ans: there is no default time scale unit in verilog/sv,
-     default time sequence is a tool dependent
+     default time sequence is a tool dependent in xilinx / vivado the timescale is 1ns/1ps
 
 
-4.what happens if mention timescale in both tb and rtl?
+5.what happens if mention timescale in both tb and rtl?
+ans:   TB timescale → decides stimulus / clock / reset / sampling delays
+       RTL timescale → decides delays written inside RTL only... Ex:`timescale 1ns/1ps  
+                                                                        #5 y = a;
+                         not decide where inputs are sampling@(posedge clk)
+                           
+*          RTL timescale does NOT decide
+            where input is sampled
+            when @(posedge clk) triggers
+            when @(req) triggers
+            
+            Because:
+            
+            @(posedge clk)
+            
+            is event-based, not delay-based.
+            
+            So:
+            
+            edge vachina appudu trigger avuthundi
+            timescale valla kaadhu
 
+*         RTL timescale does NOT decide
+          when @(posedge clk) happens
+          when input changes are detected
+          where sampling occurs in event control
+
+
+*        Why put timescale in DUT?
+
+            Good question.
+            
+            If DUT has:
+            
+            #delays
+            time-based models
+            timeouts
+            assertions with delays
+            $time / $realtime
+            internal clocks or waits
+
+
+6.what happens if mention timescale in both tb and rtl?
+      
 
 
 
