@@ -1,34 +1,3 @@
-what is time scale? 
-  time scale is a compiler directive to define the simulation time unit and time precision 
-
-TIME UNIT --> tells the simulator what a delay like #1 means,
-TIME PRECISION --> tells the smallest resolution used for rounding timing accuracy
-
-without timescale?
-  delay interpretation can become tool-dependent or may inherit settings from another file,
-  which can lead to unexpected simulation behaviour
-
-ex : with timescale 
-    `timescale 1ns/1ps
-     #5;
-    #5 means  5 ns,precision = 1 ps
-ex: without timescale
-   #5 means ,simulator may use a default timescale (or)
-             it may inherit from another compiled file (or)
-              behaviour can become inconsistent
-   file A:
-       `timescale 1ns/1ps
-          module A;
-            initial #5 $display("A time = %0t", $time);
-          endmodule
-
-  File B (without timescale)
-          module B;
-            initial #5 $display("B time = %0t", $time);
-          endmodule
-
-  ---> inherit time scale from previous file
-
 
 ***************************************************************************
 *  precision must be same or smaller than time unit   " 1ns/1ps(smaller)"
@@ -48,59 +17,6 @@ ex: without timescale
 *
 *
 **********************************************************************************
-
-
-**********************************************************************************
-*        TB timescale → decides stimulus / clock / reset / sampling delays
-         RTL timescale → decides delays written inside RTL only... Ex:`timescale 1ns/1ps  
-                                                                        #5 y = a;
-                         not decide where inputs are sampling@(posedge clk)
-                           
-*          RTL timescale does NOT decide
-            where input is sampled
-            when @(posedge clk) triggers
-            when @(req) triggers
-            
-            Because:
-            
-            @(posedge clk)
-            
-            is event-based, not delay-based.
-            
-            So:
-            
-            edge vachina appudu trigger avuthundi
-            timescale valla kaadhu
-
-*         RTL timescale does NOT decide
-          when @(posedge clk) happens
-          when input changes are detected
-          where sampling occurs in event control
-
-
-*        Why put timescale in DUT?
-
-            Good question.
-            
-            If DUT has:
-            
-            #delays
-            time-based models
-            timeouts
-            assertions with delays
-            $time / $realtime
-            internal clocks or waits
-***********************************************************************************
-
-
-
-
-
-
-
-
-
-
 
 
 ??????????????????????????????  INTERVIEW QUESTIONS ??????????????????????????????????????????
@@ -165,8 +81,11 @@ ans:   TB timescale → decides stimulus / clock / reset / sampling delays
             internal clocks or waits
 
 
-6.what happens if mention timescale in both tb and rtl?
-      
+6.what happens without timescale?
+ans: delay interpretation can become tool-dependent or may inherit settings from another file,
+  which can lead to unexpected simulation behaviour
+
+7.what happens 3 differnt files having timescale
 
 
 
@@ -187,4 +106,56 @@ ans:   TB timescale → decides stimulus / clock / reset / sampling delays
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+----------------------------------------------------------------------------------------------
+what is time scale? 
+  time scale is a compiler directive to define the simulation time unit and time precision 
+
+TIME UNIT --> tells the simulator what a delay like #1 means,
+TIME PRECISION --> tells the smallest resolution used for rounding timing accuracy
+
+without timescale?
+  delay interpretation can become tool-dependent or may inherit settings from another file,
+  which can lead to unexpected simulation behaviour
+
+ex : with timescale 
+    `timescale 1ns/1ps
+     #5;
+    #5 means  5 ns,precision = 1 ps
+ex: without timescale
+   #5 means ,simulator may use a default timescale (or)
+             it may inherit from another compiled file (or)
+              behaviour can become inconsistent
+   file A:
+       `timescale 1ns/1ps
+          module A;
+            initial #5 $display("A time = %0t", $time);
+          endmodule
+
+  File B (without timescale)
+          module B;
+            initial #5 $display("B time = %0t", $time);
+          endmodule
+
+  ---> inherit time scale from previous file
 
