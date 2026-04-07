@@ -148,8 +148,12 @@ ans: $time is a function it returns a value
 **********************************************************************************
 
 
-
-
+9. #1 and #1step both are same?
+ans: no,
+   `timescale 1ns/1ps
+    #1 --> simulation time unit --> 1ns
+    #1step--->simulation precision step ---> 1ps
+  
 
 
 
