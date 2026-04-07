@@ -5,8 +5,10 @@
     t=1/240*10^6 => t=0.004 * 10^-6 = 0.004 us => full cycle
     half clock cycle = 0.002
     """""""""""every time output high at 1us"""""""""""""""""""
-          1us = 1000ns
-*/
+          1us = 1000ns,so every 1000ns output should high
+        
+          
+*/ 
 `timescale 1us/1ns
 module tb();
   reg clk,out;
@@ -14,7 +16,7 @@ module tb();
   clk=0;
   out=0;
     forever begin
-    #0.1  out = 1;
+    #1  out = 1;
     #0.001 out = 0;
     end
   end
